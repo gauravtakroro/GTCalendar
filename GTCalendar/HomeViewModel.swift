@@ -14,12 +14,13 @@ protocol HomeViewModelProtocol: ObservableObject {
 }
 
 enum MoveToNextViewTypeFromHomeView {
-    case moveToSingleDateSelection
-    case moveToDateRangeSelection
-    case moveToMoreAdvancedMapView
+    case moveToSingleDateSelectionView
+    case moveToDateRangeSelectionView
+    case moveToDateRangeViewWithPastDates
+    case moveToDateRangeViewWithFutureDates
 }
 
 class HomeViewModel: HomeViewModelProtocol {
-    @Published var moveToNextViewType: MoveToNextViewTypeFromHomeView = .moveToSingleDateSelection
+    @Published var moveToNextViewType: MoveToNextViewTypeFromHomeView = .moveToSingleDateSelectionView
     @Published var showNextUIOfNavigationFlow: Bool = false
 }
