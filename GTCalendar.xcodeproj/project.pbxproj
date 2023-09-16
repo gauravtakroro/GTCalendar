@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		933725F12AB5FEF30003F59A /* GTMonthYearSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933725F02AB5FEF30003F59A /* GTMonthYearSubView.swift */; };
+		933725F32AB60F020003F59A /* GTDaysSelectionRangeBackgroundSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933725F22AB60F020003F59A /* GTDaysSelectionRangeBackgroundSubView.swift */; };
 		9379343F2AB5947E00C64CA6 /* GTCalendarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9379343E2AB5947E00C64CA6 /* GTCalendarApp.swift */; };
 		937934412AB5947E00C64CA6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937934402AB5947E00C64CA6 /* ContentView.swift */; };
 		937934432AB5948000C64CA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937934422AB5948000C64CA6 /* Assets.xcassets */; };
 		937934462AB5948000C64CA6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937934452AB5948000C64CA6 /* Preview Assets.xcassets */; };
 		9379344D2AB59FC700C64CA6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9379344C2AB59FC700C64CA6 /* HomeView.swift */; };
 		9379344F2AB5A1B500C64CA6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9379344E2AB5A1B500C64CA6 /* HomeViewModel.swift */; };
+		939B7F152AB5C0AF00DE6B14 /* GTCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B7F142AB5C0AF00DE6B14 /* GTCalendarView.swift */; };
+		939B7F172AB5C0C200DE6B14 /* GTCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B7F162AB5C0C200DE6B14 /* GTCalendarViewModel.swift */; };
+		939B7F192AB5C43700DE6B14 /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 939B7F182AB5C43700DE6B14 /* ColorAssets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		933725F02AB5FEF30003F59A /* GTMonthYearSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTMonthYearSubView.swift; sourceTree = "<group>"; };
+		933725F22AB60F020003F59A /* GTDaysSelectionRangeBackgroundSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTDaysSelectionRangeBackgroundSubView.swift; sourceTree = "<group>"; };
 		9379343B2AB5947E00C64CA6 /* GTCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9379343E2AB5947E00C64CA6 /* GTCalendarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCalendarApp.swift; sourceTree = "<group>"; };
 		937934402AB5947E00C64CA6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,6 +30,9 @@
 		937934452AB5948000C64CA6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9379344C2AB59FC700C64CA6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9379344E2AB5A1B500C64CA6 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		939B7F142AB5C0AF00DE6B14 /* GTCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCalendarView.swift; sourceTree = "<group>"; };
+		939B7F162AB5C0C200DE6B14 /* GTCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCalendarViewModel.swift; sourceTree = "<group>"; };
+		939B7F182AB5C43700DE6B14 /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +71,11 @@
 				937934442AB5948000C64CA6 /* Preview Content */,
 				9379344C2AB59FC700C64CA6 /* HomeView.swift */,
 				9379344E2AB5A1B500C64CA6 /* HomeViewModel.swift */,
+				939B7F142AB5C0AF00DE6B14 /* GTCalendarView.swift */,
+				939B7F162AB5C0C200DE6B14 /* GTCalendarViewModel.swift */,
+				939B7F182AB5C43700DE6B14 /* ColorAssets.xcassets */,
+				933725F02AB5FEF30003F59A /* GTMonthYearSubView.swift */,
+				933725F22AB60F020003F59A /* GTDaysSelectionRangeBackgroundSubView.swift */,
 			);
 			path = GTCalendar;
 			sourceTree = "<group>";
@@ -132,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				937934462AB5948000C64CA6 /* Preview Assets.xcassets in Resources */,
+				939B7F192AB5C43700DE6B14 /* ColorAssets.xcassets in Resources */,
 				937934432AB5948000C64CA6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,10 +159,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				939B7F152AB5C0AF00DE6B14 /* GTCalendarView.swift in Sources */,
+				933725F12AB5FEF30003F59A /* GTMonthYearSubView.swift in Sources */,
+				939B7F172AB5C0C200DE6B14 /* GTCalendarViewModel.swift in Sources */,
 				9379344D2AB59FC700C64CA6 /* HomeView.swift in Sources */,
 				937934412AB5947E00C64CA6 /* ContentView.swift in Sources */,
 				9379343F2AB5947E00C64CA6 /* GTCalendarApp.swift in Sources */,
 				9379344F2AB5A1B500C64CA6 /* HomeViewModel.swift in Sources */,
+				933725F32AB60F020003F59A /* GTDaysSelectionRangeBackgroundSubView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
