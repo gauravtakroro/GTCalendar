@@ -87,8 +87,9 @@ class GTCalendarViewModel: ObservableObject {
         if isOnlySingleDateSelectionAllowed {
             DispatchQueue.main.async {
                 self.firstDate = day
+                self.secondDate = day
                 if let actionResult = self.actionDaysCountAndStartEndDate {
-                    actionResult(1, self.dateFormatterGet.string(from: self.firstDate!), self.dateFormatterGet.string(from: self.firstDate!))
+                    actionResult(1, self.dateFormatterGet.string(from: self.firstDate!), self.dateFormatterGet.string(from: self.secondDate!))
                 }
             }
             return

@@ -43,9 +43,7 @@ struct GTCalendarView: View {
                                             ZStack {
                                                 GTDaysSelectionRangeBackgroundSubView(viewModel: viewModel, day: day, week: week, index: index)
                                                 Button(action: {
-                                                    DispatchQueue.main.async {
-                                                        viewModel.selectDay(day)
-                                                    }
+                                                    viewModel.selectDay(day)
                                                 }) {
                                                     ZStack {
                                                         Text("\(viewModel.calendar.component(.day, from: day))")
