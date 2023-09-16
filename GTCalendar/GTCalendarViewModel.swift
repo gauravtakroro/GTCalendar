@@ -10,6 +10,18 @@ import Foundation
 
 class GTCalendarViewModel: ObservableObject {
     
+    var isOnlySingleDateSelectionAllowed: Bool = false
+    var titleOfUi: String = "Calendar View"
+    
+    var isPreviousDatesDisabled: Bool = false
+    var isNextDatesDisabled: Bool = false
+    
+    @Published var isPreviousMonthDisabled: Bool = false
+    @Published var isNextMonthDisabled: Bool = false
+    
+    @Published var isPreviousYearDisabled: Bool = false
+    @Published var isNextYearDisabled: Bool = false
+   
     var calendar = Calendar.current
     var actionDaysCountAndStartEndDate: ((Int, String, String) -> Void)?
     
@@ -17,8 +29,6 @@ class GTCalendarViewModel: ObservableObject {
     
     @Published var firstDate: Date?
     @Published var secondDate: Date?
-    @Published var isPreviousMonthDisabled: Bool = false
-    @Published var isNextMonthDisabled: Bool = false
     var fontStyleForMonth: Font = .system(size: 16, weight: .semibold)
     var fontColorForMonth: Color = Color.black
     var fontStyleForYear: Font = .system(size: 16, weight: .semibold)
@@ -28,17 +38,13 @@ class GTCalendarViewModel: ObservableObject {
     var fontStyleForDates: Font = .system(size: 14, weight: .semibold)
     var fontColorForDates: Color = Color.black
     var dotColorForToday: Color = Color.green
-    var selectionCircleColorForStartDate: Color = Color.blue
-    var selectionCircleColorForEndDate: Color = Color.blue
-    
-    var selectionCircleRadiusForStartDate: Double = 6
-    var selectionCircleRadiusForEndDate: Double = 6
+    var selectionCircleColorForStartEndDate: Color = Color.blue
+    var selectionCircleRadiusForStartEndAndRangeDates: Double = 20.0
     
     var selectionCircleColorForBetweenDate: Color = Color.gray
     
     var opacityOfDisabledDates: Double = 0.3
     
-    var isOnlySingleDateSelectionAllowed: Bool = false
     let dateFormatString = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     let dateFormatterGet = DateFormatter()
     var weeks: [[Date]] {
@@ -52,7 +58,6 @@ class GTCalendarViewModel: ObservableObject {
                 weekDays.append(date)
             }
             weeks.append(weekDays)
-            print("weeks>>> \(range) \(date.startOfMonth(calendar).startOfWeek(week, calendar: calendar)) \(weekDays)")
         }
         return weeks
     }
@@ -68,9 +73,13 @@ class GTCalendarViewModel: ObservableObject {
         return nil
     }
     
-    init(_ currentDate: Date = Date(), actionDaysCountAndStartEndDate: ((Int, String, String) -> Void)?) {
+    init(_ currentDate: Date = Date(), titleOfUi: String = "Calendar View", isOnlySingleDateSelectionAllowed: Bool = false, isPreviousDatesDisabled: Bool = false, isNextDatesDisabled: Bool = false, actionDaysCountAndStartEndDate: ((Int, String, String) -> Void)?) {
         date = currentDate
+        self.titleOfUi = titleOfUi
         self.actionDaysCountAndStartEndDate = actionDaysCountAndStartEndDate
+        self.isOnlySingleDateSelectionAllowed = isOnlySingleDateSelectionAllowed
+        self.isPreviousDatesDisabled = isPreviousDatesDisabled
+        self.isNextDatesDisabled = isNextDatesDisabled
         dateFormatterGet.dateFormat = dateFormatString
     }
     
@@ -192,31 +201,74 @@ class GTCalendarViewModel: ObservableObject {
     func selectBackMonth() {
         self.date = self.calendar.date(byAdding: .month, value: -1, to: self.date) ?? Date()
         self.isMatchingWithCurrentMonthYear()
+        self.isMatchingWithCurrentYear()
     }
     
     func selectForwardMonth() {
         self.date = self.calendar.date(byAdding: .month, value: 1, to: self.date) ?? Date()
         self.isMatchingWithCurrentMonthYear()
+        self.isMatchingWithCurrentYear()
     }
     
     func selectBackYear() {
         self.date = self.calendar.date(byAdding: .year, value: -1, to: self.date) ?? Date()
+        self.isMatchingWithCurrentMonthYear()
+        self.isMatchingWithCurrentYear()
     }
     
     func selectForwardYear() {
         self.date = self.calendar.date(byAdding: .year, value: 1, to: self.date) ?? Date()
+        self.isMatchingWithCurrentMonthYear()
+        self.isMatchingWithCurrentYear()
     }
     
     func isMatchingWithCurrentMonthYear() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM.yyyy"
+        dateFormatter.dateFormat = "yyyyMM"
         
         let monthYearSelected = dateFormatter.string(from: date)
         
         let monthYearCurrent = dateFormatter.string(from: Date())
+        
         DispatchQueue.main.async {
-            self.isPreviousMonthDisabled = monthYearSelected == monthYearCurrent
+            if self.isPreviousDatesDisabled {
+                self.isPreviousMonthDisabled = monthYearSelected <= monthYearCurrent
+            } else {
+                self.isPreviousMonthDisabled = false
+            }
         }
+        DispatchQueue.main.async {
+            if self.isNextDatesDisabled {
+                self.isNextMonthDisabled = monthYearSelected >= monthYearCurrent
+            } else {
+                self.isNextMonthDisabled = false
+            }
+        }
+        print("isMatchingWithCurrentMonthYear \(self.isPreviousMonthDisabled) \(self.isNextMonthDisabled) \(monthYearSelected) \(monthYearCurrent) \(monthYearSelected <= monthYearCurrent) \(monthYearSelected >= monthYearCurrent)")
+    }
+    
+    func isMatchingWithCurrentYear() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        
+        let yearSelected = dateFormatter.string(from: date)
+        
+        let yearCurrent = dateFormatter.string(from: Date())
+        DispatchQueue.main.async {
+            if self.isPreviousDatesDisabled {
+                self.isPreviousYearDisabled = yearSelected <= yearCurrent
+            } else {
+                self.isPreviousYearDisabled = false
+            }
+        }
+        DispatchQueue.main.async {
+            if self.isNextDatesDisabled {
+                self.isNextYearDisabled = yearSelected >= yearCurrent
+            } else {
+                self.isNextYearDisabled = false
+            }
+        }
+        print("isMatchingWithCurrentYear \(self.isPreviousYearDisabled) \(self.isNextYearDisabled) \(yearSelected) \(yearCurrent) \(yearSelected <= yearCurrent) \(yearSelected >= yearCurrent)")
     }
     
     func isMatchingWithSelectedFirstDateMonthYear() -> Bool {
@@ -235,12 +287,26 @@ class GTCalendarViewModel: ObservableObject {
         }
     }
     
+    func checkAndDisableWithCurrentDate(day: Date) -> Bool {
+        if isToday(day: day) {
+            return false
+        } else {
+            if isPreviousDatesDisabled {
+                return day < Date()
+            } else if isNextDatesDisabled {
+                return day > Date()
+            } else {
+                return day < Date()
+            }
+        }
+    }
+    
     func checkValuesAndUpdateColor(day: Date) -> Color {
-        return isDateInRange(day: day) ? (isDateSelected(day: day) ? Color.black : Color.gray) : Color.clear
+        return isDateInRange(day: day) ? (isDateSelected(day: day) ? selectionCircleColorForStartEndDate: selectionCircleColorForBetweenDate) : Color.clear
     }
     
     func getRadiusValueUsingDayAndIndex(day: Date, index: Int) -> Double {
-        return isDateSelected(day: day) ? 20.0 : (isDateInRange(day: day) ? 20.0 : 0.0)
+        return isDateSelected(day: day) ? selectionCircleRadiusForStartEndAndRangeDates : (isDateInRange(day: day) ? selectionCircleRadiusForStartEndAndRangeDates : 0.0)
     }
     
     func getRoundedCornersUsingDayAndIndex(day: Date, index: Int) -> UIRectCorner {

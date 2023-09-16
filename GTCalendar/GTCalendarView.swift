@@ -2,7 +2,7 @@
 //  GTCalendarView.swift
 //  GTCalendar
 //
-//  Created by Roro Solutions LLP on 16/09/23.
+//  Created by Gaurav Tak on 16/09/23.
 //
 
 import SwiftUI
@@ -50,7 +50,7 @@ struct GTCalendarView: View {
                                                     ZStack {
                                                         Text("\(viewModel.calendar.component(.day, from: day))")
                                                             .font(viewModel.fontStyleForDates)
-                                                            .foregroundColor(viewModel.isDateSelected(day: day) ? Color.white : Color.black).opacity(viewModel.isLessThanWithCurrentDate(day: day) ? 0.3 : 1.0)
+                                                            .foregroundColor(viewModel.isDateSelected(day: day) ? Color.white : Color.black).opacity(viewModel.checkAndDisableWithCurrentDate(day: day) ? 0.3 : 1.0)
                                                         
                                                         Circle()
                                                             .frame(width: 4, height: 4)
@@ -60,7 +60,7 @@ struct GTCalendarView: View {
                                                     .frame(width: 40, height: 40)
                                                     .contentShape(Rectangle())
                                                 }
-                                                .disabled(viewModel.isLessThanWithCurrentDate(day: day) || !viewModel.calendar.isDate(day, equalTo: viewModel.date, toGranularity: .month))
+                                                .disabled(viewModel.checkAndDisableWithCurrentDate(day: day) || !viewModel.calendar.isDate(day, equalTo: viewModel.date, toGranularity: .month))
                                                 .buttonStyle(.plain)
                                                 .background(viewModel.checkValuesAndUpdateColor(day: day))
                                                 .cornerRadius(viewModel.getRadiusValueUsingDayAndIndex(day: day, index: index))
@@ -82,6 +82,7 @@ struct GTCalendarView: View {
                 }
             }
         }
+        .navigationTitle(viewModel.titleOfUi)
     }
 }
 

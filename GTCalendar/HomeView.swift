@@ -13,13 +13,26 @@ struct HomeView: View {
     
     func buildView() -> some View {
         if viewModel.moveToNextViewType == .moveToSingleDateSelectionView {
-            return AnyView(Text("Single Date Selection View ")).edgesIgnoringSafeArea(.all)
+            return AnyView(GTCalendarView(viewModel: GTCalendarViewModel(titleOfUi: "Single Date Selection", isOnlySingleDateSelectionAllowed: true, actionDaysCountAndStartEndDate: {
+                days, startDate, endDate in
+                print("actionDaysCountAndStartEndDate days \(days) startDate \(startDate) endDate \(endDate)")
+            }))).edgesIgnoringSafeArea(.all)
         } else if viewModel.moveToNextViewType == .moveToDateRangeSelectionView {
-            return AnyView(Text("Date Range Selection View")).edgesIgnoringSafeArea(.all)
+            return AnyView(GTCalendarView(viewModel: GTCalendarViewModel(titleOfUi:"Date Range Selection", actionDaysCountAndStartEndDate: {
+                days, startDate, endDate in
+                print("actionDaysCountAndStartEndDate days \(days) startDate \(startDate) endDate \(endDate)")
+            }))).edgesIgnoringSafeArea(.all)
         } else if viewModel.moveToNextViewType == .moveToDateRangeViewWithPastDates {
-            return AnyView(Text("Date Range View With Past Dates")).edgesIgnoringSafeArea(.all)
+            return AnyView(GTCalendarView(viewModel: GTCalendarViewModel(titleOfUi: "Date Range Selection With Past Dates", isPreviousDatesDisabled: false, isNextDatesDisabled: true,
+                actionDaysCountAndStartEndDate: {
+                days, startDate, endDate in
+                print("actionDaysCountAndStartEndDate days \(days) startDate \(startDate) endDate \(endDate)")
+            }))).edgesIgnoringSafeArea(.all)
         } else if viewModel.moveToNextViewType == .moveToDateRangeViewWithFutureDates {
-            return AnyView(Text("Date Range View With Future Dates")).edgesIgnoringSafeArea(.all)
+            return AnyView(GTCalendarView(viewModel: GTCalendarViewModel(titleOfUi: "Date Range Selection With Future Dates", isPreviousDatesDisabled: true, isNextDatesDisabled: false, actionDaysCountAndStartEndDate: {
+                days, startDate, endDate in
+                print("actionDaysCountAndStartEndDate days \(days) startDate \(startDate) endDate \(endDate)")
+            }))).edgesIgnoringSafeArea(.all)
         } else {
             return AnyView(HomeView()).edgesIgnoringSafeArea(.all)
         }

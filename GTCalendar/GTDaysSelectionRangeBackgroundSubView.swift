@@ -2,9 +2,8 @@
 //  GTDaysSelectionRangeBackgroundSubView.swift.swift
 //  GTCalendar
 //
-//  Created by Roro Solutions LLP on 16/09/23.
+//  Created by Gaurav Tak on 16/09/23.
 //
-
 
 import Foundation
 import SwiftUI
