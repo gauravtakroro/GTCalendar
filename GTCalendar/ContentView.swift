@@ -9,14 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image("calendar")
-                .resizable()
-                .frame(width: 60, height: 60)
-                
-            Text("Custom Calendar Designing")
-        }
-        .padding()
+        HomeView()
     }
 }
 
